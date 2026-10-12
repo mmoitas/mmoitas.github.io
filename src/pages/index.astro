@@ -2,9 +2,13 @@
 import AboutMe from '../components/AboutMe.astro';
 import HeaderMain from '../components/HeaderMain.astro';
 import HistoryTile from '../components/HistoryTile.astro';
+import Lottie from '../components/Lottie.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ProjectsHome from '../components/ProjectsHome.astro';
 import Layout from '../layouts/Layout.astro';
+
+//animations
+import heroAnimation from '../assets/animation/home-animation.json';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -20,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
 			multidisciplinary design organization at H&amp;R Block for Small Business.
 		</Fragment>
 		<Fragment slot="media">
-			<img src="/images/header-main-illustration.svg" alt="" />
+			<Lottie animationData={heroAnimation} />
 		</Fragment>
 		<!--
 		<AboutMe>

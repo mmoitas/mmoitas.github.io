@@ -12,7 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "lottie-web": "^5.13.0"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

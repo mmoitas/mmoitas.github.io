@@ -1,0 +1,49 @@
+---
+interface Props {
+	animationData: { w: number; h: number; [key: string]: unknown };
+	loop?: boolean;
+	autoplay?: boolean;
+	label?: string;
+	class?: string;
+}
+
+const { animationData, loop = true, autoplay = true, label, class: className } = Astro.props;
+---
+
+<div
+	class:list={['lottie', className]}
+	style={`aspect-ratio: ${animationData.w} / ${animationData.h};`}
+	data-lottie={JSON.stringify(animationData)}
+	data-loop={String(loop)}
+	data-autoplay={String(autoplay)}
+	role={label ? 'img' : undefined}
+	aria-label={label}
+	aria-hidden={label ? undefined : 'true'}
+>
+</div>
+
+<script>
+	import lottie from 'lottie-web/build/player/lottie_light';
+
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	document.querySelectorAll<HTMLElement>('[data-lottie]').forEach((container) => {
+		const animation = lottie.loadAnimation({
+			container,
+			renderer: 'svg',
+			loop: container.dataset.loop === 'true',
+			autoplay: container.dataset.autoplay === 'true' && !reduceMotion,
+			animationData: JSON.parse(container.dataset.lottie!),
+		});
+		container.removeAttribute('data-lottie');
+
+		// Show the first frame as a still image when motion is reduced
+		if (reduceMotion) animation.goToAndStop(0, true);
+	});
+</script>
+
+<style>
+	.lottie {
+		width: 100%;
+	}
+</style>
