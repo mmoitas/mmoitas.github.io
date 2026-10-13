@@ -3,16 +3,27 @@ interface Props {
 	animationData: { w: number; h: number; [key: string]: unknown };
 	loop?: boolean;
 	autoplay?: boolean;
+	/** Any CSS length, or a number in px. Width scales down to keep the aspect ratio. */
+	maxHeight?: number | string;
 	label?: string;
 	class?: string;
 }
 
-const { animationData, loop = true, autoplay = true, label, class: className } = Astro.props;
+const { animationData, loop = true, autoplay = true, maxHeight, label, class: className } = Astro.props;
+
+const ratio = `${animationData.w} / ${animationData.h}`;
+const maxHeightValue = typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight;
+const style = [
+	`aspect-ratio: ${ratio};`,
+	maxHeightValue && `max-width: calc(${maxHeightValue} * ${ratio});`,
+]
+	.filter(Boolean)
+	.join(' ');
 ---
 
 <div
 	class:list={['lottie', className]}
-	style={`aspect-ratio: ${animationData.w} / ${animationData.h};`}
+	style={style}
 	data-lottie={JSON.stringify(animationData)}
 	data-loop={String(loop)}
 	data-autoplay={String(autoplay)}
