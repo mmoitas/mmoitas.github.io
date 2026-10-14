@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BentoGrid from '../components/BentoGrid.astro';
+import BentoCard2Col from '../components/BentoCard2Col.astro';
+import BentoCard2Row from '../components/BentoCard2Row.astro';
+import HeaderProject from '../components/HeaderProject.astro';
+
+import imgWlHero from '../assets/whisky-lovers/wl-hero.svg';
+import imgWlResearch from '../assets/whisky-lovers/wl-research.png';
+import imgWlField from '../assets/whisky-lovers/wl-field-research.png';
+import imgAccountsWidget from '../assets/dashboard-vision/accounts-advisors.png';
+import imgCustomize from '../assets/dashboard-vision/customize.png';
+import imgShortTerm from '../assets/dashboard-vision/short-term.png';
+---
+
+<Layout>
+	<HeaderProject background="11">
+		<Fragment slot="title">Whisky Lovers club</Fragment>
+		<Fragment slot="body">
+			A Diageo brief to trade up Johnnie Walker drinkers turned into something bigger: redesigning how whisky gets consumed at high-energy occasions. I led the brand, service, and product design behind it, from a new club identity to the bottle on the table.
+		</Fragment>
+		<Fragment slot="media">
+			<img src={imgWlHero.src} alt="Whisky Lovers club logo" />
+		</Fragment>
+	</HeaderProject>
+
+	<BentoGrid dividers>
+		<BentoCard2Col>
+			<Fragment slot="text">
+				<h2 class="text-display-3">The problem</h2>
+				<p class="text-body-default">
+					Johnnie Walker had a Red Label problem. Red sold well at the point of sale, meaning bars, restaurants, and nightclubs, but it sits at the bottom of the portfolio, and Diageo wanted more consumers trading up to Black Label and beyond. Their marketing team wanted to better understand the red label consumer behavior and what could be done to innovate on that space.
+				</p>
+				<p class="text-body-default">
+					In São Paulo, at selected bars and nightclubs, customers can buy a bottle of Johnnie Walker blended scotch whisky and keep it stored at bar on their name, meaning that when they come back they can simply order from their own bottles and pay only for service. Those clubs are an excellent tool for building customer retention for bars and for Johnnie Walker.
+					But the way service and communication of the clubs are was very inconsistent, so they need wanted us to also explore a brand to unify all Diageo owned whisky clubs.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgWlResearch.src} width="100%" alt="A screenshot showing Wave's old dashboard" />
+			</Fragment>
+		</BentoCard2Col>
+	</BentoGrid>
+
+	<BentoGrid dividers>
+		<BentoCard2Col>
+			<Fragment slot="text">
+				<h2 class="text-display-3">Field research</h2>
+				<p class="text-body-default">
+					We shadowed consumers at bars across São Paulo, sat in on rounds with regulars, and ran in-depth interviews with people at different points on the whisky consumption spectrum. 
+				</p>
+				<h3 class="text-display-4">What we learned</h3>
+				<p class="text-body-default">
+					The pattern that mattered most was that <strong>whisky carried a reputation for solemnity</strong> that worked against it in the occasions where Diageo wanted more volume. In high-energy settings (birthdays, big groups, after-work rounds that turned into nights out) people wanted to mix their drink, add ice, add energy drinks, keep the round moving. Whisky's culture treated any of that as close to sacrilege. Rather than face that tension, people ordered vodka instead, where mixing was expected and cheap.
+				</p>
+				<p class="text-body-default">
+					So the barrier to up trade from red to black wasn't price or awareness. It was that whisky's own ritual excluded the occasions where Diageo was looking to win more customers. We watched how vodka rituals worked at the same venues, the presentation, the shared bottle on the table, the informality, the mixers variety, and used that as the model for what whisky needed to borrow without losing its identity.
+				</p>
+				<p class="text-body-default">
+					The design problem we had ahead of us was to take whisky from a lowkey, solemn drink to something that works in a high-energy moment, without stripping out the reverence and craft that make it whisky in the first place.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgWlField.src} width="100%" alt="A photo of a camera screen recording a field research interview" />
+				<p class="text-body-small">This is Bob, one of the interviewees of our field research. He fits the profile of a typical whisky enthusiast and collector.</p>
+			</Fragment>
+		</BentoCard2Col>
+	</BentoGrid>
+
+	<BentoGrid dividers>
+		<BentoCard2Row>
+			<Fragment slot="text">
+				<h2 class="text-display-3">The solution</h2>
+				<p class="text-body-default">
+					Rather than a generic loyalty program, we tied club membership to a ritual moment, welcoming a new club member with a exclusive experience. A customer who ordered a Black Label bottle became a Whisky Lovers member on the spot, and the bottle stayed at the venue for their return visits. This gave staff a natural moment to introduce the club instead of pitching it cold.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgAccountsWidget.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+			</Fragment>
+		</BentoCard2Row>
+	</BentoGrid>
+
+	<BentoGrid dividers>
+		<BentoCard2Row dividers>
+			<Fragment slot="text">
+				<h2 class="text-display-4">The Whisky Lovers brand</h2>
+				<p class="text-body-default">
+					A mark built from a simplified Johnnie Walker bottle silhouette and a the black, gold, blue and red color palette that is connected to the product line in a design that drives the brand to a more modern tone than the classic, and sometimes antiquated, perception people might have of scotch whisky. Next we created the brand guidelines and the full application system (menus, table cards, bottle stickers) so it could be applied consistently through promotional elements.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgCustomize.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+			</Fragment>
+		</BentoCard2Row>
+		<BentoCard2Col>
+			<Fragment slot="text">
+				<h2 class="text-display-4">Club welcome kit</h2>
+				<p class="text-body-default">
+					New members received a kit with a book on the history of whisky, a club manifesto, a personalized membership card, and a set of exclusive glassware. This was the moment we designed to feel celebratory rather than administrative, closer to a gift than a signup process.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgCustomize.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+			</Fragment>
+		</BentoCard2Col>
+	</BentoGrid>
+
+	<BentoGrid>
+		<BentoCard2Col>
+			<Fragment slot="text">
+				<h2 class="text-display-3">Impact</h2>
+				<p class="text-body-default">
+					The first phase of this vision shipped as a opt-in beta. In this first step we simply apply the vision's widget design and grid, with that we took the first step setting the foundations to get to the vision ideal state. We also added one more promotional banner to drive people to upgrade to Pro. With this extra banner we increased visibility to Wave’s paid plan and <strong>converted customers to Pro 3x more than the previous experience.</strong> The vision work also went on to shape Wave's product roadmap directly, including early direction for AI initiatives.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgShortTerm.src} width="100%" alt="Screenshot of the short term implementation of the new dashboard." />
+				<p class="text-body-small">This is the short term implementation of the dashboard.</p>
+			</Fragment>
+		</BentoCard2Col>
+	</BentoGrid>
+</Layout>

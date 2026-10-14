@@ -1,5 +1,5 @@
 ---
-type BackgroundVariant = '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
+type BackgroundVariant = '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';
 
 interface Props {
 	background: BackgroundVariant;
@@ -8,7 +8,9 @@ interface Props {
 const { background } = Astro.props;
 ---
 
-<header class="header-project" style={`background-color: var(--brand-${background});`}>
+<header
+	class:list={['header-project', { 'is-dark': background === '11' }]}
+	style={`background-color: var(--brand-${background});`}>
 	<div class="content">
 		<div class="text-slot">
 			<p class="text-display-2"><slot name="title">This is a project title</slot></p>
@@ -61,6 +63,13 @@ const { background } = Astro.props;
 			no-repeat,
 			no-repeat,
 			no-repeat;
+	}
+
+	/* Typography classes set their own color, so override them directly rather than relying on inheritance. */
+	.header-project.is-dark,
+	.header-project.is-dark .text-slot :is(.text-display-2, .text-body-large),
+	.header-project.is-dark .text-slot :global(*) {
+		color: var(--text-color-tertiary);
 	}
 
 	.content {
