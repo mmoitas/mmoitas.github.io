@@ -216,6 +216,29 @@ li:not(:last-child) {
 	height: auto;
 }
 
+/* Horizontal counterpart of .scroll-frame, for wide images (e.g. journey maps). */
+.scroll-frame-x {
+	height: 800px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	width: 100%;
+	scrollbar-color: var(--neutral-100) var(--surface-color-0);
+	scrollbar-width: thin;
+}
+
+.scroll-frame-x img {
+	display: block;
+	width: auto;
+	max-width: none;
+	height: 100%;
+}
+
+@media (max-width: 768px) {
+	.scroll-frame-x {
+		height: 400px;
+	}
+}
+
 .text-nav-title {
 	margin: 0;
 	font-family: var(--font-family-display);

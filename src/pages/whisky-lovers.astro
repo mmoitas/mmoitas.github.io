@@ -8,9 +8,12 @@ import HeaderProject from '../components/HeaderProject.astro';
 import imgWlHero from '../assets/whisky-lovers/wl-hero.svg';
 import imgWlResearch from '../assets/whisky-lovers/wl-research.png';
 import imgWlField from '../assets/whisky-lovers/wl-field-research.png';
-import imgAccountsWidget from '../assets/dashboard-vision/accounts-advisors.png';
-import imgCustomize from '../assets/dashboard-vision/customize.png';
-import imgShortTerm from '../assets/dashboard-vision/short-term.png';
+import imgWlJourney from '../assets/whisky-lovers/wl-journey-uptrade1.png';
+import imgWlWelcomeKit from '../assets/whisky-lovers/wl-welcome-kit.png';
+import imgWlStand from '../assets/whisky-lovers/wl-stand-prototype.png';
+import imgWlBrand from '../assets/whisky-lovers/wl-brand.png';
+import imgWlApp from '../assets/whisky-lovers/wl-app.png';
+import imgWlBook from '../assets/whisky-lovers/wl-book.png';
 ---
 
 <Layout>
@@ -74,15 +77,20 @@ import imgShortTerm from '../assets/dashboard-vision/short-term.png';
 				<p class="text-body-default">
 					Rather than a generic loyalty program, we tied club membership to a ritual moment, welcoming a new club member with a exclusive experience. A customer who ordered a Black Label bottle became a Whisky Lovers member on the spot, and the bottle stayed at the venue for their return visits. This gave staff a natural moment to introduce the club instead of pitching it cold.
 				</p>
+				<p class="text-body-default">
+					We mapped the full staff-facing journey (below), how a server identifies a Red Label order as an up trade moment, what they say, what glassware and mixers they offer, how a Pay-as-you-go bottle gets tracked with a measuring sticker, and how the bill closes. This turned the ritual into something repeatable across venues rather than dependent on one well-trained bartender.
+				</p>
 			</Fragment>
 			<Fragment slot="media">
-				<img src={imgAccountsWidget.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+				<div class="scroll-frame-x" tabindex="0" role="region" aria-label="Whisky Lovers trade-up journey map, scrolls horizontally">
+					<img src={imgWlJourney.src} alt="Customer journey map (in Portuguese) showing how a Black Label bottle order turns a customer into a Whisky Lovers club member" />
+				</div>
 			</Fragment>
 		</BentoCard2Row>
 	</BentoGrid>
 
 	<BentoGrid dividers>
-		<BentoCard2Row dividers>
+		<BentoCard2Col dividers>
 			<Fragment slot="text">
 				<h2 class="text-display-4">The Whisky Lovers brand</h2>
 				<p class="text-body-default">
@@ -90,33 +98,61 @@ import imgShortTerm from '../assets/dashboard-vision/short-term.png';
 				</p>
 			</Fragment>
 			<Fragment slot="media">
-				<img src={imgCustomize.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+				<img src={imgWlBrand.src} width="100%" alt="Whisky Lovers logo and card sleeves with the color palette applied." />
 			</Fragment>
-		</BentoCard2Row>
+		</BentoCard2Col>
 		<BentoCard2Col>
 			<Fragment slot="text">
 				<h2 class="text-display-4">Club welcome kit</h2>
 				<p class="text-body-default">
-					New members received a kit with a book on the history of whisky, a club manifesto, a personalized membership card, and a set of exclusive glassware. This was the moment we designed to feel celebratory rather than administrative, closer to a gift than a signup process.
+					New members received a kit with a book on the history of whisky, a club manifesto, a membership card, and a Johnnie Walker tumbler. Joining the club was designed to feel celebratory rather than administrative, closer to a gift than a signup process.
 				</p>
 			</Fragment>
 			<Fragment slot="media">
-				<img src={imgCustomize.src} width="100%" alt="Screenshot of the accounts balance and Wave advisors widgets" />
+				<img src={imgWlWelcomeKit.src} width="100%" alt="Screenshot of the club welcome kit" />
 			</Fragment>
 		</BentoCard2Col>
 	</BentoGrid>
 
-	<BentoGrid>
-		<BentoCard2Col>
+	<BentoGrid dividers>
+		<BentoCard2Row dividers>
 			<Fragment slot="text">
-				<h2 class="text-display-3">Impact</h2>
+				<h2 class="text-display-4">The glowing bottle stand</h2>
 				<p class="text-body-default">
-					The first phase of this vision shipped as a opt-in beta. In this first step we simply apply the vision's widget design and grid, with that we took the first step setting the foundations to get to the vision ideal state. We also added one more promotional banner to drive people to upgrade to Pro. With this extra banner we increased visibility to Wave’s paid plan and <strong>converted customers to Pro 3x more than the previous experience.</strong> The vision work also went on to shape Wave's product roadmap directly, including early direction for AI initiatives.
+					For the table, we designed a stand with a light built into the base, so a member's bottle sat lit on the table between rounds. This did the job the vodka rituals did naturally, made the bottle a visible, social object on the table rather than something poured quietly and put away.
 				</p>
 			</Fragment>
 			<Fragment slot="media">
-				<img src={imgShortTerm.src} width="100%" alt="Screenshot of the short term implementation of the new dashboard." />
-				<p class="text-body-small">This is the short term implementation of the dashboard.</p>
+				<img src={imgWlStand.src} width="100%" alt="Screenshot of the glowing bottle stand prototype" />
+				<p class="text-body-small">
+					This is a prototype of the glowing bottle stand, which was designed to make the bottle a social object on the table.
+				</p>
+			</Fragment>
+		</BentoCard2Row>
+		<BentoCard2Row>
+			<Fragment slot="text">
+				<h2 class="text-display-4">Mobile app</h2>
+				<p class="text-body-default">
+					We sketched a Whisky Lovers app concept as a light-weight companion. With the app, club members would be able to scan a QR code when they got to a bar to light up their bottle on the bar shelf. They can also keep track of their bottles and unlock perks.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgWlApp.src} width="100%" alt="Screenshot of the Whisky Lovers app concept" />
+			</Fragment>
+		</BentoCard2Row>
+	</BentoGrid>
+
+	<BentoGrid>
+		<BentoCard2Col zoomable>
+			<Fragment slot="text">
+				<h2 class="text-display-3">Where we landed on</h2>
+				<p class="text-body-default">
+					We delivered final assets and a working prototype to Diageo's marketing team. Welcome kits were produced and ready for distribution at Astor, the pilot venue. Unfortunately I left Designit shortly after handoff, so I don’t have any information to share about the outcomes, but our expectation is that the premium service enabled by the club, and the modern tone of voice allied with the relaxation of old rules like showing how whisky and mixers go really well together, we would drive more people to order Johnnie Walker Black Label, and to a better customer retention for partner bars, clubs, and restaurants.
+				</p>
+			</Fragment>
+			<Fragment slot="media">
+				<img src={imgWlBook.src} width="100%" alt="Screenshot of the short term implementation of the new dashboard." />
+				<p class="text-body-small">These are a few pages from the book we designed to be part of the club welcome kit.</p>
 			</Fragment>
 		</BentoCard2Col>
 	</BentoGrid>
