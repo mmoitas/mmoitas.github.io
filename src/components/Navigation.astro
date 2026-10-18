@@ -183,8 +183,9 @@ const next = current && carouselPages[(currentIndex + 1) % count];
 	}
 
 	/* Figma "NextPrev" (node 187:164): chevrons around the current page title. */
-	/* 80px to the home icon: the margin tops up the list's --space-8 gap. */
-	.next-prev {
+	/* 80px to the home icon: the margin tops up the list's --space-8 gap.
+	   Scoped under .right-actions so it outranks `.right-actions li { margin: 0 }`. */
+	.right-actions .next-prev {
 		display: flex;
 		align-items: center;
 		gap: var(--space-2);
@@ -194,7 +195,7 @@ const next = current && carouselPages[(currentIndex + 1) % count];
 
 	/* Too crowded next to the other actions on mobile. */
 	@media (max-width: 768px) {
-		.next-prev {
+		.right-actions .next-prev {
 			display: none;
 		}
 	}
