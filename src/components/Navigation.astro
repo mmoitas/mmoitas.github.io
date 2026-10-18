@@ -1,9 +1,21 @@
 ---
+import { carouselPages } from '../data/pages';
+
 export interface Props {
 	class?: string;
 }
 
 const { class: className } = Astro.props;
+
+// NextPrev: find the current page in the carousel and its neighbours,
+// wrapping around at both ends. Pages outside the list (previews) hide it.
+const normalize = (path: string) => path.replace(/\/+$/, '') || '/';
+const currentPath = normalize(Astro.url.pathname);
+const currentIndex = carouselPages.findIndex((page) => page.href === currentPath);
+const current = carouselPages[currentIndex];
+const count = carouselPages.length;
+const prev = current && carouselPages[(currentIndex - 1 + count) % count];
+const next = current && carouselPages[(currentIndex + 1) % count];
 ---
 
 <nav class:list={['navigation', className]} aria-label="Primary">
@@ -23,15 +35,45 @@ const { class: className } = Astro.props;
 		</button>
 	</div>
 	<ul class="right-actions">
+		{
+			current && (
+				<li class="next-prev">
+					<a href={prev.href} class="icon-link" aria-label={`Previous: ${prev.title}`}>
+						<img src="/images/icons/chevron-left-small-dark.svg" alt="" width="32" height="32" />
+					</a>
+					<span class="page-label text-pretitle" aria-current="page">
+						<span class="page-label-track">
+							<span class="page-label-text">{current.title}</span>
+							<span class="page-label-text page-label-copy" aria-hidden="true">
+								{current.title}
+							</span>
+						</span>
+					</span>
+					<a href={next.href} class="icon-link" aria-label={`Next: ${next.title}`}>
+						<img src="/images/icons/chevron-right-small-dark.svg" alt="" width="32" height="32" />
+					</a>
+				</li>
+			)
+		}
 		<li>
-			<a href="mailto:mmoitas@gmail.com" class="contact-link" aria-label="Email mmoitas@gmail.com">
+			<a
+				href="/"
+				class="icon-link"
+				aria-label="Home"
+				aria-current={currentPath === '/' ? 'page' : undefined}
+			>
+				<img src="/images/icons/home-small-dark.svg" alt="" width="32" height="32" />
+			</a>
+		</li>
+		<li>
+			<a href="mailto:mmoitas@gmail.com" class="icon-link" aria-label="Email mmoitas@gmail.com">
 				<img src="/images/icons/mail-small-dark.svg" alt="" width="32" height="32" />
 			</a>
 		</li>
 		<li>
 			<a
 				href="https://linkedin.com/in/moitas/"
-				class="contact-link"
+				class="icon-link"
 				aria-label="LinkedIn profile (opens in a new tab)"
 				target="_blank"
 				rel="noopener noreferrer"
@@ -49,6 +91,28 @@ const { class: className } = Astro.props;
 		const update = () => navigation.classList.toggle('is-scrolled', window.scrollY > 0);
 		update();
 		window.addEventListener('scroll', update, { passive: true });
+	}
+
+	// NextPrev ticker: only titles that don't fit get .is-overflowing, which
+	// turns on the hover scroll. The duration keeps the speed constant
+	// whatever the title length.
+	const TICKER_SPEED = 40; // px per second
+	const label = document.querySelector<HTMLElement>('.page-label');
+	const text = label?.querySelector<HTMLElement>('.page-label-text');
+	const nextPrev = label?.closest<HTMLElement>('.next-prev');
+
+	if (label && text && nextPrev) {
+		const measure = () => {
+			const overflowing = text.scrollWidth > label.clientWidth;
+			nextPrev.classList.toggle('is-overflowing', overflowing);
+			if (overflowing) {
+				const gap = parseFloat(getComputedStyle(text).paddingRight) || 0;
+				label.style.setProperty('--ticker-duration', `${(text.scrollWidth + gap) / TICKER_SPEED}s`);
+			}
+		};
+		measure();
+		document.fonts.ready.then(measure);
+		new ResizeObserver(measure).observe(label);
 	}
 </script>
 
@@ -99,23 +163,89 @@ const { class: className } = Astro.props;
 		margin: 0;
 	}
 
-	.contact-link {
+	.icon-link {
 		display: block;
 		border-radius: var(--space-2);
 		transition: opacity 150ms ease;
 	}
 
-	.contact-link:hover {
+	.icon-link:hover {
 		opacity: 0.6;
 	}
 
-	.contact-link:focus-visible {
+	.icon-link:focus-visible {
 		outline: 2px solid var(--stroke-color-primary);
 		outline-offset: 4px;
 	}
 
-	.contact-link img {
+	.icon-link img {
 		display: block;
+	}
+
+	/* Figma "NextPrev" (node 187:164): chevrons around the current page title. */
+	/* 80px to the home icon: the margin tops up the list's --space-8 gap. */
+	.next-prev {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		width: 240px;
+		margin-inline-end: calc(var(--space-20) - var(--space-8));
+	}
+
+	/* Too crowded next to the other actions on mobile. */
+	@media (max-width: 768px) {
+		.next-prev {
+			display: none;
+		}
+	}
+
+	.page-label {
+		flex: 1 1 0;
+		min-width: 0;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.page-label-track {
+		display: flex;
+	}
+
+	/* At rest: one copy, truncated with an ellipsis. */
+	.page-label-text {
+		flex: 0 0 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.page-label-copy {
+		display: none;
+	}
+
+	/* On hover: both copies side by side at full width, scrolled left by one
+	   copy's width so the loop is seamless. padding-right is the gap between
+	   the copies (the script reads it to set the duration). */
+	.next-prev.is-overflowing:hover .page-label-track,
+	.next-prev.is-overflowing:focus-within .page-label-track {
+		width: max-content;
+		animation: page-label-ticker var(--ticker-duration, 8s) linear infinite;
+	}
+
+	.next-prev.is-overflowing:hover .page-label-text,
+	.next-prev.is-overflowing:focus-within .page-label-text {
+		flex: none;
+		padding-right: var(--space-8);
+		overflow: visible;
+	}
+
+	.next-prev.is-overflowing:hover .page-label-copy,
+	.next-prev.is-overflowing:focus-within .page-label-copy {
+		display: block;
+	}
+
+	@keyframes page-label-ticker {
+		to {
+			transform: translateX(-50%);
+		}
 	}
 
 	.nav-button {
@@ -170,6 +300,25 @@ const { class: className } = Astro.props;
 		.nav-button:hover .label-spin,
 		.nav-button:focus-visible .label-spin {
 			animation: none;
+		}
+
+		/* Keep the truncated title instead of scrolling it. */
+		.next-prev.is-overflowing:hover .page-label-track,
+		.next-prev.is-overflowing:focus-within .page-label-track {
+			width: auto;
+			animation: none;
+		}
+
+		.next-prev.is-overflowing:hover .page-label-text,
+		.next-prev.is-overflowing:focus-within .page-label-text {
+			flex: 0 0 100%;
+			padding-right: 0;
+			overflow: hidden;
+		}
+
+		.next-prev.is-overflowing:hover .page-label-copy,
+		.next-prev.is-overflowing:focus-within .page-label-copy {
+			display: none;
 		}
 	}
 

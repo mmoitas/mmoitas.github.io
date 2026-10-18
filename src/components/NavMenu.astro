@@ -2,6 +2,7 @@
 // Figma "dropdownNavMenu" (node 152:202). Full-screen menu, rendered once in
 // Layout.astro and opened by the .nav-button in Navigation.astro.
 import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/pages';
 ---
 
 <dialog class="nav-menu" id="nav-menu" aria-label="Site menu">
@@ -16,21 +17,13 @@ import ProjectCard from './ProjectCard.astro';
 			</button>
 		</div>
 		<div class="nav-menu-grid">
-			<ProjectCard href="/wave-dashboard-vision" image="/images/projects/dashboard.svg">
-				Wave dashboard vision
-			</ProjectCard>
-			<ProjectCard href="/wave-design-systems" image="/images/projects/design-systems.svg">
-				Wave design systems
-			</ProjectCard>
-			<ProjectCard href="/wave-illustrations" image="/images/projects/illustrations.svg">
-				Wave illustrations
-			</ProjectCard>
-			<ProjectCard href="/whisky-lovers" image="/images/projects/whisky-lovers.svg">
-				Johnnie Walker’s Whisky Lovers
-			</ProjectCard>
-			<ProjectCard href="/wave-navigation" image="/images/projects/navigation.svg">
-				Wave navigation
-			</ProjectCard>
+			{
+				projects.map((project) => (
+					<ProjectCard href={project.href} image={project.image}>
+						{project.title}
+					</ProjectCard>
+				))
+			}
 		</div>
 	</div>
 </dialog>
