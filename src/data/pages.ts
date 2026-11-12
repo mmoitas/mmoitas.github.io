@@ -27,14 +27,19 @@ export const projects: Required<SitePage>[] = [
 		image: '/images/projects/illustrations.svg',
 	},
 	{
-		href: '/whisky-lovers',
-		title: 'Johnnie Walker’s Whisky Lovers',
-		image: '/images/projects/whisky-lovers.svg',
+		href: '/wave-receipts',
+		title: 'Wave receipts',
+		image: '/images/projects/receipts.svg',
 	},
 	{
 		href: '/wave-navigation',
 		title: 'Wave navigation',
 		image: '/images/projects/navigation.svg',
+	},
+	{
+		href: '/whisky-lovers',
+		title: 'Johnnie Walker’s Whisky Lovers',
+		image: '/images/projects/whisky-lovers.svg',
 	},
 ];
 
